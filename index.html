@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Review sentiment</title>
+    <meta name="description" content="Simple NLP Model with TensorFlow.js">
+    <meta name="keywords" content="Machine Learning, NLP, TensorFlow.js">
+    <meta name="author" content="Daniele Cordano">
+    <style>
+      body {
+        font-family: "Roboto";
+      }
+      h1 {
+        margin: 50px;
+        font-size: 70px;
+        text-align: center;
+      }
+      #review {
+        display: block;
+        border:8px solid grey;
+        margin: auto;
+        font-size: 16px;
+		width: 80%;
+      }
+      #evaluate {
+        margin: auto;
+        margin-top: 70px;
+        padding: 30px;
+        text-align: center;
+		font-size: 35px;
+        display:block;
+      }
+    </style>
+	<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest"></script>
+  </head>
+  <body>
+    <h1>Review sentiment</h1>
+    <input type="text" id="review" placeholder="i.e.: This book is amazing!">
+    <button id="evaluate">Evaluate</button>
+    <script>
+    const review = document.getElementById('review');
+    const evaluate = document.getElementById('evaluate');
+	const MAX_LENGTH = 120;
+	let wi = [];
+	let model = null;
+
+    evaluate.addEventListener('click', function() {predict(review.value);});
+	review.addEventListener("input", function() {review.style.borderColor = 'grey';});
+	loadFiles();
+	
+	async function loadFiles() {
+	  loadWordIndex(function(response) {
+        wi = JSON.parse(response);
+	  });
+      const MODEL_URL = 'model/model.json';
+      model = await tf.loadLayersModel(MODEL_URL);
+      console.log(model.summary());
+	}
+	
+	function loadWordIndex(callback) {
+      let xobj = new XMLHttpRequest();
+      xobj.overrideMimeType("application/json");
+      xobj.open('GET', 'word_index.json', true);
+      xobj.onreadystatechange = function () {
+          if (xobj.readyState == 4 && xobj.status == "200") {
+              callback(xobj.responseText);
+            }
+      };
+      xobj.send(null);  
+	}
+	
+	function textToSequences(text) {
+      text = text.replace(/(~|`|!|@|#|$|%|^|&|\*|\(|\)|{|}|\[|\]|;|:|\"|'|<|,|\.|>|\?|\/|\\|\||-|_|\+|=)/g,"")
+	  const wordArray = text.toLowerCase().split(' ');
+	  const OOV_SEQ = wi['<OOV>'];
+	  let inputArray = [];
+	  for (let i = 0; i < MAX_LENGTH; i++) {
+	    if (i < wordArray.length) {
+		  let seq = wi[wordArray[i]];
+		  if (seq)
+            inputArray[i] = seq;
+	      else
+		    inputArray[i] = OOV_SEQ;
+		  }
+		else
+		  inputArray[i] = 0;  
+      }
+      return inputArray;
+	}
+	
+    function predict(input) {
+	  inputArray = textToSequences(input);
+      model.predict(tf.tensor2d(inputArray, [1, MAX_LENGTH])).array().then(function(scores){
+        predicted = scores[0] > 0.5;
+        if (predicted)
+	      review.style.borderColor = 'green';
+	    else
+	      review.style.borderColor = 'red';
+        });
+    }
+	
+    </script>
+  </body>
+</html>
