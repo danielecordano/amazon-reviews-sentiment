@@ -1,6 +1,9 @@
 # NLP
 NLP model for text classification.
 
+Here is the live demo:
+https://danielecordano.github.io/NLP/
+
 Thanks to Keith Galli for his dataset:
 https://github.com/KeithGalli/sklearn/blob/master/data/sentiment/Books_small_10000.json
 
