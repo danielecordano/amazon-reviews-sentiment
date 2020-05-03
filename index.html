@@ -28,6 +28,27 @@
         font-size: 24px;
 		width: 80vw;
       }
+      #loader {
+        z-index: 1;
+        width: 8vmin;
+        height: 8vmin;
+        border: 1vmin solid rgb(255, 255, 255);
+        border-radius: 50%;
+        border-top: 1vmin solid rgb(238, 136, 34);
+        animation: spin 1s linear infinite;
+      }
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      .hide {
+        display: none;
+      }
       #evaluate {
         margin: auto;
         margin-top: 70px;
@@ -43,9 +64,11 @@
     <h1>Review sentiment</h1>
     <p id="explanation">Write your own book review and have it classified automatically.<br>When you press the evaluate button, your review will be highlighted in red if negative or in green if positive.</p>
     <input type="text" id="review" placeholder="i.e.: This book is amazing!">
+    <div id="loader"></div>
     <button id="evaluate">Evaluate</button>
     <script>
     const review = document.getElementById('review');
+    const loader = document.getElementById('loader');
     const evaluate = document.getElementById('evaluate');
 	const MAX_LENGTH = 120;
 	let wi = [];
@@ -62,7 +85,8 @@
       const MODEL_URL = 'model/model.json';
       model = await tf.loadLayersModel(MODEL_URL);
       console.log(model.summary());
-      evaluate.style.display = 'block'
+      loader.classList.add('hide');
+      evaluate.style.display = 'block';
 	}
 	
 	function loadWordIndex(callback) {
@@ -99,7 +123,7 @@
     function predict(input) {
 	  inputArray = textToSequences(input);
       model.predict(tf.tensor2d(inputArray, [1, MAX_LENGTH])).array().then(function(scores){
-        predicted = scores[0] > 0.3319125;
+        predicted = scores[0] > 0.9401558;
         if (predicted)
 	      review.style.borderColor = 'green';
 	    else
