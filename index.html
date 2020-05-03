@@ -28,7 +28,7 @@
         font-size: 24px;
 		width: 80vw;
       }
-      #loader {
+      .loader {
         z-index: 1;
         width: 8vmin;
         height: 8vmin;
@@ -66,7 +66,7 @@
     <h1>Review sentiment</h1>
     <p id="explanation">Write your own book review and have it classified automatically.<br>When you press the evaluate button, your review will be highlighted in red if negative or in green if positive.</p>
     <input type="text" id="review" placeholder="i.e.: This book is amazing!">
-    <div id="loader"></div>
+    <div id="loader" class="loader"></div>
     <button id="evaluate">Evaluate</button>
     <script>
     const review = document.getElementById('review');
