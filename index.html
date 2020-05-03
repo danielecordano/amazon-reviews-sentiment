@@ -17,24 +17,24 @@
       #explanation {
         display: block;
         margin: auto;
-	margin-bottom: 24px;
+        margin-bottom: 24px;
         font-size: 24px;
-	width: 80vw;
+		width: 80vw;
       }
       #review {
         display: block;
         border:8px solid grey;
         margin: auto;
         font-size: 24px;
-	width: 80vw;
+		width: 80vw;
       }
       #evaluate {
         margin: auto;
         margin-top: 70px;
         padding: 30px;
         text-align: center;
-	font-size: 35px;
-        display:block;
+		font-size: 35px;
+        display: none;
       }
     </style>
 	<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest"></script>
@@ -62,6 +62,7 @@
       const MODEL_URL = 'model/model.json';
       model = await tf.loadLayersModel(MODEL_URL);
       console.log(model.summary());
+      evaluate.style.display = 'block'
 	}
 	
 	function loadWordIndex(callback) {
