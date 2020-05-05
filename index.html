@@ -135,7 +135,7 @@
           .predict(tf.tensor2d(inputArray, [1, MAX_LENGTH]))
           .array()
           .then(function (scores) {
-            predicted = scores[0] > 0.9401558;
+            predicted = scores[0] > 0.5272851;
             if (predicted) review.style.borderColor = "green";
             else review.style.borderColor = "red";
           });
