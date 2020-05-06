@@ -12,4 +12,4 @@ https://nijianmo.github.io/amazon/index.html
 
 Thanks to Laurence Moroney for his "Tensorflow in practice" specialization on Coursera.
 The notebook is inspired by:
-https://colab.research.google.com/github/lmoroney/dlaicourse/blob/master/TensorFlow%20In%20Practice/Course%203%20-%20NLP/NLP%20Course%20-%20Week%203%20Exercise%20Answer.ipynb
+https://github.com/lmoroney/dlaicourse/blob/master/TensorFlow%20In%20Practice/Course%203%20-%20NLP/NLP%20Course%20-%20Week%203%20Exercise%20Answer.ipynb
