@@ -1,1 +1,5 @@
+.ipynb_checkpoints
+.vscode
+/dist
+/my_custom_code.egg-info
 model.zip
