@@ -17,7 +17,9 @@ class MyPredictor(object):
         if kwargs.get('probabilities'):
             return outputs
         else:
-            return outputs > self._threshold
+            above_threshold = [output[0] >
+                               self._threshold for output in outputs]
+            return above_threshold
 
     @classmethod
     def from_path(cls, model_dir):
