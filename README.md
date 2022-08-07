@@ -1,8 +1,8 @@
-# NLP
+# Amazon reviews sentiment analysis
 NLP model for text classification.
 
 Here is the live demo:
-https://danielecordano.github.io/NLP/
+https://danielecordano.github.io/amazon-reviews-sentiment/
 
 Thanks to Keith Galli for his dataset:
 https://github.com/KeithGalli/sklearn/blob/master/data/sentiment/Books_small_10000.json
